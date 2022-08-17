@@ -1,33 +1,43 @@
 const categID = localStorage.getItem('catID')
 const CategoriasURL = `https://japceibal.github.io/emercado-api/cats_products/${categID}.json`;
-console.log(CategoriasURL)
 
+showSpinner()
 fetch(CategoriasURL)
     .then(response => response.json())
-    .then(data => listarProductos(data))
-    .catch(error => console.log(error))
+    .then(data => {
+        listarProductos(data) 
+        hideSpinner()
+    })
+    .catch(error => {
+        console.log(error)
+        hideSpinner()
+    })
 
 let listarProductos = (categoria) => {
-    document.getElementById("contProd").innerHTML = ""
+    document.getElementById("contProd").innerHTML = ""  //Se vacia el contenedor principal
+
+    /*Se agrega el titulo al contenedor*/
     document.getElementById("contProd").innerHTML +=    `<div class="text-center p-4">
                                                             <h2>Productos</h2>
                                                             <p>Todos nuestros ${categoria.catName}<p>
                                                         </div>`
+                                                        
+    /*Se agregan los productos de la categoria obtenida del localStorage*/
     const productos = categoria.products
     for(let i=0;  i < productos.length; i++){
         document.getElementById("contProd").innerHTML += `<div class="list-group-item list-group-item-action cursor-active">
-                                                                    <div class="row">
-                                                                        <div class="col-3">
-                                                                            <img src="${productos[i].image}" alt="${productos[i].description}" class="img-thumbnail">
-                                                                        </div>
-                                                                        <div class="col">
-                                                                            <div class="d-flex w-100 justify-content-between">
-                                                                                <h4 class="mb-1">${productos[i].name} - ${productos[i].currency}${productos[i].cost}</h4>
-                                                                                <small class="text-muted">${productos[i].soldCount} artículos</small>
-                                                                            </div>
-                                                                            <p class="mb-1">${productos[i].description}</p>
-                                                                        </div>
+                                                                <div class="row">
+                                                                    <div class="col-3">
+                                                                        <img src="${productos[i].image}" alt="${productos[i].description}" class="img-thumbnail">
                                                                     </div>
-                                                                </div>`
+                                                                    <div class="col">
+                                                                        <div class="d-flex w-100 justify-content-between">
+                                                                            <h4 class="mb-1">${productos[i].name} - ${productos[i].currency}${productos[i].cost}</h4>
+                                                                            <small class="text-muted">${productos[i].soldCount} artículos</small>
+                                                                        </div>
+                                                                        <p class="mb-1">${productos[i].description}</p>
+                                                                    </div>
+                                                                </div>
+                                                          </div>`
     }
 }
