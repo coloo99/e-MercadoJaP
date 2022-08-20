@@ -15,6 +15,6 @@ document.addEventListener("DOMContentLoaded", function(){
 
 let array = localStorage.getItem('user');
 let user = JSON.parse(array);
-if(user === null || user[0] == "" && user[0] == ""){
+if(user === null || user[0] === "" && user[1] === ""){
     window.location = "login.html"
 }

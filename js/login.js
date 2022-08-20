@@ -34,7 +34,7 @@ eventoLogear()
 function logear(){
     let email = document.getElementById('usuario').value
     let contra = document.getElementById('contraseña').value
-    if(email === "" && contra === ""){
+    if(email === "" && contra === "" || email === "" || contra === ""){
         document.getElementById('errForm').innerHTML = "<p class='errForm'>Ingrese sus datos para ingresar</p>"
         eventoLogear()
     }else if(contra.length < 8){
