@@ -12,9 +12,3 @@ document.addEventListener("DOMContentLoaded", function(){
         window.location = "products.html"
     });
 });
-
-let array = localStorage.getItem('user');
-let user = JSON.parse(array);
-if(user === null || user[0] === "" && user[1] === ""){
-    window.location = "login.html"
-}

@@ -39,3 +39,12 @@ let getJSONData = function(url){
         return result;
     });
 }
+
+let array = localStorage.getItem('user');
+let user = JSON.parse(array);
+if(user === null){
+  window.location = "login.html"
+}else{
+  document.getElementById('campoUsername').innerHTML = `<a class='nav-link'>${user[0]}</a>`
+}
+
