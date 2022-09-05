@@ -10,6 +10,15 @@ document.getElementById('sortDesc').addEventListener("click", function() {
 document.getElementById('sortAsc').addEventListener("click", function() {
     ordenarPorPrecioAscendente()
 })
+document.getElementById('sortByRelev').addEventListener("click", function() {
+    relevanciaDecendente()
+})
+document.getElementById('buscar').addEventListener("click", function() {
+    buscarProd()
+})
+document.getElementById('search').addEventListener("keyup",  function() { 
+    buscarProd()
+})
 
 const categID = localStorage.getItem('catID')
 const CategoriasURL = `https://japceibal.github.io/emercado-api/cats_products/${categID}.json`;
@@ -132,9 +141,10 @@ let limpiarFiltros = () => {
     document.getElementById('rangeFilterCountMin').value = ''
     document.getElementById('rangeFilterCountMax').value = ''
     listarProductos(window.cat, document.getElementById('rangeFilterCountMin').value, document.getElementById('rangeFilterCountMax').value)
+    window.location = "products.html"
 }
 
-let ordenarPorPrecioDecendente = () => {  //Ordeno los productos de forma Descendente
+let ordenarPorPrecioDecendente = () => {  //Ordeno los productos de forma Descendente por precio
     document.getElementById("contProd").innerHTML = "";
     let productos = window.cat.products
     result = productos.sort(function(a, b) {
@@ -148,7 +158,7 @@ let ordenarPorPrecioDecendente = () => {  //Ordeno los productos de forma Descen
     listarProductosFiltrados(result)
 }
 
-let ordenarPorPrecioAscendente = () => {  //Ordeno los productos de forma Ascendente
+let ordenarPorPrecioAscendente = () => {  //Ordeno los productos de forma Ascendente por precio
     document.getElementById("contProd").innerHTML = "";
     let productos = window.cat.products
     result = productos.sort(function(a, b) {
@@ -157,6 +167,20 @@ let ordenarPorPrecioAscendente = () => {  //Ordeno los productos de forma Ascend
 
         if ( aCost < bCost ){ return -1; }
         if ( aCost > bCost ){ return 1; }
+        return 0;
+    });
+    listarProductosFiltrados(result)
+}
+
+let relevanciaDecendente = () => {  //Ordeno los productos de forma decendente segun la relevancia por la cantidad vendidos
+    document.getElementById("contProd").innerHTML = "";
+    let productos = window.cat.products
+    result = productos.sort(function(a, b) {
+        let aCost = a.soldCount;
+        let bCost = b.soldCount;
+
+        if ( aCost > bCost ){ return -1; }
+        if ( aCost < bCost ){ return 1; }
         return 0;
     });
     listarProductosFiltrados(result)
@@ -177,6 +201,40 @@ let listarProductosFiltrados = (result) => {  //Listo los productos del array pa
                                                                         <p class="mb-1">${result[i].description}</p>
                                                                     </div>
                                                                 </div>
+                                                        </div>`
+    }
+}
+
+
+const buscarProd = () => {
+    document.getElementById("contProd").innerHTML = '';
+    const texto = document.getElementById('search').value.toLowerCase();
+    let productos = window.cat.products
+    console.log(texto)
+    for(let producto of productos){
+        let nombre = producto.name.toLowerCase()
+        if(nombre.indexOf(texto) !== -1){
+            document.getElementById("contProd").innerHTML += `<div class="list-group-item list-group-item-action cursor-active">
+                                                                <div class="row">
+                                                                    <div class="col-3">
+                                                                        <img src="${producto.image}" alt="${producto.description}" class="img-thumbnail">
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <div class="d-flex w-100 justify-content-between">
+                                                                            <h4 class="mb-1">${producto.name} - ${producto.currency}${producto.cost}</h4>
+                                                                            <small class="text-muted">${producto.soldCount} artículos</small>
+                                                                        </div>
+                                                                        <p class="mb-1">${producto.description}</p>
+                                                                    </div>
+                                                                </div>
+                                                        </div>`
+        }
+    }
+    if(document.getElementById("contProd").innerHTML === ''){
+        document.getElementById("contProd").innerHTML += `<div class="list-group-item list-group-item-action cursor-active">
+                                                            <div class="row">
+                                                                <p>Producto no encontrado</p>
+                                                            </div>
                                                         </div>`
     }
 }

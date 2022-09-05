@@ -10,7 +10,7 @@ document.getElementById('contLogin').innerHTML = `<div class="wrapper fadeInDown
                                                         <!-- Login Form -->
                                                         <form id="formulario">
                                                             <input type="text" id="usuario" class="fadeIn second" name="login" placeholder="Usuario">
-                                                            <input type="text" id="contraseña" class="fadeIn third" name="login" placeholder="Contraseña">
+                                                            <input type="password" id="contraseña" class="fadeIn third" name="login" placeholder="Contraseña">
                                                             <div id="errForm"></div>
                                                             <input type="submit" id="ingresar" class="fadeIn fourth" value="Ingresar">
                                                         </form>
