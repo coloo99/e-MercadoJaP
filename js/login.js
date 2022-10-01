@@ -46,3 +46,9 @@ function logear(){
         window.location = "index.html"
     }
 }
+
+let array = localStorage.getItem('user');
+let user = JSON.parse(array);
+if(user !== null){
+  window.location = "index.html"
+}

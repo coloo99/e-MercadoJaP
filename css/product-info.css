@@ -1,0 +1,179 @@
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*-Contenedor general productos-*/
+#contProducto{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+}
+/*--Titulo productos------*/
+.titulo{
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+/*----Info del product----*/
+.info-prod{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-items: center;
+    text-align: left;
+    width: 50%;
+}
+.nombres{
+    font-size: x-large;
+    font-weight: bold;
+    width: 40%;
+}
+.datos{
+    width: 55%;
+    font-size: x-large;
+}
+/*--Imagenes del producto--*/
+#imagenes{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 50%;
+}
+.imgs-prod{
+    width: 46%;
+    margin: 2%;
+}
+
+/*Contenedor global comentarios*/
+.globalComentarios{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+.globalInferior{
+    display: flex;
+    flex-direction: row;
+    min-height: 900px;
+    max-width: 100%;
+}
+
+/*------Comentarios------*/
+#contComentarios{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 70px;
+    width: 430px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 10px;
+}
+/*--Titulo comentarios--*/
+.tituloComentarios{
+    color: rgb(63, 63, 63);
+}
+/*-Contenedor por comentario-*/
+.comentarios-prod{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.comentarioVacio-prod{
+    display: flex;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+/*---Datos del comentario---*/
+.user{
+    font-weight: bold;
+    width: 180px;
+}
+.fecha{
+    width: 150px;
+    color: gray;
+    margin-right: 5px;
+}
+.score{
+    width: 90px;
+}
+.descripcion{
+    width: 100%;
+}
+
+
+/*-Contenedor realizar Comentario-*/
+#realizarComentario{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 430px;
+}
+/*---Titulo Comentar---*/
+.tituloComentar{
+    display: flex;
+    text-align: left;
+    color:rgb(63, 63, 63);
+    width: 100%;
+}
+#comentarioText{
+    width: 100%;
+    margin-bottom: 30px;
+}
+.conforme{
+    margin-top: 5px;
+}
+#score{
+    margin-left: 5px;
+    border-radius: 5px;
+    width: 40px;
+    text-align: center;
+}
+/*Boton comentario*/
+#envComentario{
+    background-color:#56baed;
+    color: white;
+    width: 100px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    margin-left: 20px;
+}
+#envComentario:hover{
+    background-color:#3a95c3;
+}
+
+/*Productos sugeridos*/
+#productosSugeridos{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: space-around;
+    margin-top: 60px;
+    margin-left: 50px;
+    margin-right: 50px;
+    height: 100%;
+}
+
+.tituloSugeridos{
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+#productosSugeridos img{
+    width: 200px;
+}
+
+.sugeridosProds{
+    width: 220px;
+    height: 180px;
+    padding-left: 10px;
+    padding-right: 10px;
+}

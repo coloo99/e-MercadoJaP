@@ -35,6 +35,12 @@ fetch(CategoriasURL)
         hideSpinner()
     })
 
+    
+function setProdID(id) {
+    localStorage.setItem("prodID", id);
+    window.location = "product-info.html"
+}
+
 let listarProductos = (categoria, min, max) => {
     window.cat = categoria;  // Se crea la variable global de productos
     document.getElementById("contProd").innerHTML = ""  //Se vacia el contenedor principal de los productos
@@ -48,7 +54,7 @@ let listarProductos = (categoria, min, max) => {
         /*Se agregan los productos de la categoria obtenida del localStorage*/
         const productos = categoria.products
         for(let i=0;  i < productos.length; i++){
-            document.getElementById("contProd").innerHTML += `<div class="list-group-item list-group-item-action cursor-active">
+            document.getElementById("contProd").innerHTML += `<div onclick="setProdID(${productos[i].id})" class="list-group-item list-group-item-action cursor-active">
                                                                     <div class="row">
                                                                         <div class="col-3">
                                                                             <img src="${productos[i].image}" alt="${productos[i].description}" class="img-thumbnail">
@@ -69,7 +75,7 @@ let listarProductos = (categoria, min, max) => {
 
         for(let i=0;  i < productos.length; i++){
             if(productos[i].cost > min){
-                document.getElementById("contProd").innerHTML += `<div class="list-group-item list-group-item-action cursor-active">
+                document.getElementById("contProd").innerHTML += `<div onclick="setProdID(${productos[i].id})" class="list-group-item list-group-item-action cursor-active">
                                                                         <div class="row">
                                                                             <div class="col-3">
                                                                                 <img src="${productos[i].image}" alt="${productos[i].description}" class="img-thumbnail">
@@ -90,7 +96,7 @@ let listarProductos = (categoria, min, max) => {
         document.getElementById("contProd").innerHTML = ""  //Se vacia el contenedor principal de los productos
         for(let i=0;  i < productos.length; i++){
             if(productos[i].cost < max){
-                document.getElementById("contProd").innerHTML += `<div class="list-group-item list-group-item-action cursor-active">
+                document.getElementById("contProd").innerHTML += `<div onclick="setProdID(${productos[i].id})" class="list-group-item list-group-item-action cursor-active">
                                                                         <div class="row">
                                                                             <div class="col-3">
                                                                                 <img src="${productos[i].image}" alt="${productos[i].description}" class="img-thumbnail">
@@ -112,7 +118,7 @@ let listarProductos = (categoria, min, max) => {
 
         for(let i=0;  i < productos.length; i++){
             if(productos[i].cost > min && productos[i].cost < max){
-                document.getElementById("contProd").innerHTML += `<div class="list-group-item list-group-item-action cursor-active">
+                document.getElementById("contProd").innerHTML += `<div onclick="setProdID(${productos[i].id})" class="list-group-item list-group-item-action cursor-active">
                                                                         <div class="row">
                                                                             <div class="col-3">
                                                                                 <img src="${productos[i].image}" alt="${productos[i].description}" class="img-thumbnail">
@@ -188,7 +194,7 @@ let relevanciaDecendente = () => {  //Ordeno los productos de forma decendente s
 
 let listarProductosFiltrados = (result) => {  //Listo los productos del array pasado por parametro
     for(let i=0;  i < result.length; i++){
-        document.getElementById("contProd").innerHTML += `<div class="list-group-item list-group-item-action cursor-active">
+        document.getElementById("contProd").innerHTML += `<div onclick="setProdID(${productos[i].id})" class="list-group-item list-group-item-action cursor-active">
                                                                 <div class="row">
                                                                     <div class="col-3">
                                                                         <img src="${result[i].image}" alt="${result[i].description}" class="img-thumbnail">
@@ -210,11 +216,10 @@ const buscarProd = () => {
     document.getElementById("contProd").innerHTML = '';
     const texto = document.getElementById('search').value.toLowerCase();
     let productos = window.cat.products
-    console.log(texto)
     for(let producto of productos){
         let nombre = producto.name.toLowerCase()
         if(nombre.indexOf(texto) !== -1){
-            document.getElementById("contProd").innerHTML += `<div class="list-group-item list-group-item-action cursor-active">
+            document.getElementById("contProd").innerHTML += `<div onclick="setProdID(${producto.id})" class="list-group-item list-group-item-action cursor-active">
                                                                 <div class="row">
                                                                     <div class="col-3">
                                                                         <img src="${producto.image}" alt="${producto.description}" class="img-thumbnail">
