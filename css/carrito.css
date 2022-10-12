@@ -1,0 +1,58 @@
+#titulo{
+   display: flex;
+   text-align: center;
+   justify-content: center;
+   align-items: center;
+}
+.subTitulo{
+    margin-top: 50px;
+    display: flex;
+    text-align: left;
+}
+img{
+    width: 50px;
+}
+
+/*Tabla*/
+.demo {
+    border-collapse:colapso;
+    padding:5px;
+    width: 90%;
+}
+.demo th {
+    padding:5px;
+    background:#F0F0F0;
+    text-align: center;
+}
+.demo thead{
+    border-bottom:1px solid #121212;
+}
+.demo tbody{
+    border-bottom:1px solid #a3a3a3;
+}
+.demo td {
+    padding:5px;
+    text-align: center;
+}
+.subTotal{
+    font-weight: bold;
+}
+.cantidad{
+    width: 50px;
+}
+
+/*Envio*/
+.tipoEnvio{
+    display: flex;
+    flex-direction: column;
+}
+.dirEnvio{
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 10px;
+}
+.dirEnvio input {
+    margin-right: 15px;
+    width: 150px;
+    margin-bottom: 20px;
+}

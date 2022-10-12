@@ -1,7 +1,7 @@
 const prodID = localStorage.getItem('prodID')
 const ProductosURL = `https://japceibal.github.io/emercado-api/products/${prodID}.json`;
 const ProductsCommentsURL = `https://japceibal.github.io/emercado-api/products_comments/${prodID}.json`;
-
+let productosCarrito = []
 
 fetch(ProductosURL)
     .then(response => response.json())
@@ -16,7 +16,7 @@ fetch(ProductosURL)
 
 let mostrarProducto = (producto) => {
     window.productoActual = producto
-    document.getElementById('contProducto').innerHTML =`<h1 class="titulo">${producto.name}</h1>
+    document.getElementById('contProducto').innerHTML =`<div class="head"><h1 class="titulo">${producto.name}</h1><buttom id="addToCart">Comprar</buttom></div>
                                                         <div class="info-prod">
                                                             <p class="nombres">Precio:</p><p class="datos">${producto.currency + producto.cost}</p>
                                                             <p class="nombres">Categoria:</p><p class="datos">${producto.category}</p>
@@ -56,6 +56,29 @@ let mostrarProducto = (producto) => {
                                                             <span class="visually-hidden">Next</span>
                                                         </button>
                                                     </div>`
+    document.getElementById('addToCart').addEventListener('click', function(e){
+            let prod = {
+                count: 1,
+                currency: producto.currency,
+                id: producto.id,
+                image: imgs[0],
+                name: producto.name,
+                unitCost: producto.cost,
+            }
+            if(localStorage.getItem('productosCarrito') === null){
+                productosCarrito.push(prod)
+                productosCarrito = JSON.stringify(productosCarrito)
+                localStorage.setItem('productosCarrito', productosCarrito)
+                window.location = "cart.html"
+            }else{
+                productosCarrito = JSON.parse(localStorage.getItem('productosCarrito'))
+                productosCarrito.push(prod)
+                productosCarrito = JSON.stringify(productosCarrito)
+                localStorage.setItem('productosCarrito', productosCarrito)
+                window.location = "cart.html"
+            }
+        
+    })
 } 
 
 fetch(ProductsCommentsURL)

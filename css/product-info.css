@@ -13,8 +13,26 @@ main{
     text-align: center;
 }
 /*--Titulo productos------*/
-.titulo{
+.head{
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#addToCart{
+    cursor: pointer;
+    background-color: green;
+    color: white;
+    text-align: center;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+.titulo{
     margin-top: 20px;
     margin-bottom: 30px;
     font-weight: bold;
