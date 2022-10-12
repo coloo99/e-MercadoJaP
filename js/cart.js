@@ -70,7 +70,7 @@ let mostrarCarrito = (cart) => {
                                         <label for="standard">Standard 12 a 15 dias(5%)</label>
                                     </div>
                                 </div>
-                                <div id="subTitulo"><h4>Direccion de envio</h4></div>
+                                <div class="subTitulo"><h4>Direccion de envio</h4></div>
                                 <div class="dirEnvio">
                                     <input type="text" id="calle" placeHolder="Calle">
                                     <input type="text" id="numero" placeHolder="Numero">

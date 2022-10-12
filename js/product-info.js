@@ -79,6 +79,7 @@ let mostrarProducto = (producto) => {
             }
         
     })
+    listarSugeridos(producto.relatedProducts)
 } 
 
 fetch(ProductsCommentsURL)
@@ -93,7 +94,6 @@ fetch(ProductsCommentsURL)
     })
 
 let mostrarComentarios = (comentarios) => {
-    console.log(comentarios)
     document.getElementById('contComentarios').innerHTML += `<h4 class="tituloComentarios">Comentarios</h4>`
     insertarComentarios(comentarios)
 }
@@ -144,30 +144,13 @@ document.getElementById('envComentario').addEventListener('click', function(e){
     insertarComentarios(comentarioNuevo)
 })
 
-
-const categID = localStorage.getItem('catID')
-const CategoriasURL = `https://japceibal.github.io/emercado-api/cats_products/${categID}.json`;
-
-fetch(CategoriasURL)
-    .then(response => response.json())
-    .then(data => {
-        listarSugeridos(data) 
-        hideSpinner()
-    })
-    .catch(error => {
-        console.log(error)
-        hideSpinner()
-    })
-
-function listarSugeridos(categoria){
+function listarSugeridos(productos){
     document.getElementById("productosSugeridos").innerHTML =  `<h3 class="tituloSugeridos">Nuestros productos similares</h3>`
-                                                            
-    const productos = categoria.products
     for(let producto of productos){
         document.getElementById("productosSugeridos").innerHTML += `<div onclick="setProdID(${producto.id})" class="sugeridosProds cursor-active">
                                                                         <div class="col">
                                                                             <div class="row">
-                                                                                <img src="${producto.image}" alt="${producto.description}" class="img-thumbnail">
+                                                                                <img src="${producto.image}" alt="${producto.name}" class="img-thumbnail">
                                                                             </div>
                                                                             <div class="row">
                                                                                 <h4 class="mb-1">${producto.name}</h4>
