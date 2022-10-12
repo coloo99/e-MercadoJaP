@@ -39,3 +39,24 @@ let getJSONData = function(url){
         return result;
     });
 }
+
+let array = localStorage.getItem('user');
+let user = JSON.parse(array);
+if(user === null){
+  window.location = "login.html"
+}else{
+  document.getElementById('campoUsername').innerHTML = `<div class="dropdown show">
+                                                          <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            ${user[0]}
+                                                          </a>
+                                                          <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuLink">
+                                                            <a class="dropdown-item" href="./cart.html">Mi carrito</a>
+                                                            <a class="dropdown-item" href="./my-profile.html">Mi perfil</a>
+                                                            <a onclick="logOut()" class="dropdown-item" href="./login.html">Cerrar sesion</a>
+                                                          </div>
+                                                        </div>`
+}
+
+function logOut(){
+  localStorage.removeItem('user');
+}

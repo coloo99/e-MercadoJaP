@@ -1,0 +1,13 @@
+.search{
+    width: 20%;
+    height: 40px;
+    display: flex;
+    margin-right: 1%;
+    margin-bottom: 10px;
+}
+.buscar{
+    width: 10%;
+    height: 40px;
+    margin-right: 1%;
+    margin-bottom: 10px;
+}

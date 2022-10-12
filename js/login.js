@@ -10,7 +10,7 @@ document.getElementById('contLogin').innerHTML = `<div class="wrapper fadeInDown
                                                         <!-- Login Form -->
                                                         <form id="formulario">
                                                             <input type="text" id="usuario" class="fadeIn second" name="login" placeholder="Usuario">
-                                                            <input type="text" id="contraseña" class="fadeIn third" name="login" placeholder="Contraseña">
+                                                            <input type="password" id="contraseña" class="fadeIn third" name="login" placeholder="Contraseña">
                                                             <div id="errForm"></div>
                                                             <input type="submit" id="ingresar" class="fadeIn fourth" value="Ingresar">
                                                         </form>
@@ -34,7 +34,7 @@ eventoLogear()
 function logear(){
     let email = document.getElementById('usuario').value
     let contra = document.getElementById('contraseña').value
-    if(email === "" && contra === ""){
+    if(email === "" && contra === "" || email === "" || contra === ""){
         document.getElementById('errForm').innerHTML = "<p class='errForm'>Ingrese sus datos para ingresar</p>"
         eventoLogear()
     }else if(contra.length < 8){
@@ -45,4 +45,10 @@ function logear(){
         localStorage.setItem("user",JSON.stringify(user));
         window.location = "index.html"
     }
+}
+
+let array = localStorage.getItem('user');
+let user = JSON.parse(array);
+if(user !== null){
+  window.location = "index.html"
 }
