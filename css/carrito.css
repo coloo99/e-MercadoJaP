@@ -38,6 +38,7 @@ img{
     font-weight: bold;
 }
 .cantidad{
+    text-align: center;
     width: 50px;
 }
 
