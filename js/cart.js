@@ -1,5 +1,7 @@
 const urlCart = "https://japceibal.github.io/emercado-api/user_cart/25801.json"
-const contCarrito = document.getElementById("container")
+const contCarrito = document.getElementById("carritoCont")
+const contEnvio = document.getElementById("envioCont")
+const contCostos = document.getElementById("costosCont")
 
 fetch(urlCart)
     .then(response => response.json())
@@ -10,6 +12,24 @@ fetch(urlCart)
     })
 
 let mostrarCarrito = (cart) => {
+    contCostos.innerHTML += `<table id="tableCart" class="demo">
+                                                            <h4>Costos</h4>
+                                                            <tbody id="tbodyCart">
+                                                                <tr>
+                                                                    <td><h6>Subtotal</h6><p>Costo unitario del producto por cantidad</p></td>
+                                                                    <td id="subTotalTotal">USD 0</td>
+                                                                <tr>
+                                                                <tr>
+                                                                    <td><h6>Costo de envo</h6><p>Segun el tipo de envio</p></td>
+                                                                    <td id="subTotalTotal">USD 0</td>
+                                                                <tr>
+                                                                <tr>
+                                                                    <td><h6>Total ($)</h6></td>
+                                                                    <td id="subTotalTotal">USD 0</td>
+                                                                <tr>
+                                                            </tbody>
+                                                        </table>`
+
     let productosCartLG = localStorage.getItem('productosCarrito')
     productosCartLG = JSON.parse(productosCartLG)
     if(productosCartLG !== null){
@@ -36,6 +56,7 @@ let mostrarCarrito = (cart) => {
                                 <tbody id="tbodyCart">
                                 </tbody>`
 
+                                let total = 0
     for(let articulo of cart.articles){
         let subTotal = articulo.unitCost * articulo.count
         let tr = document.createElement('tr')
@@ -47,12 +68,22 @@ let mostrarCarrito = (cart) => {
 
         document.getElementById(`tbodyCart`).appendChild(tr)
 
+        //Se calcula la suma del sub total de todos los productos
         let inputEvent = document.getElementById(`cantidad${articulo.id}`)
+        total += subTotal
+
         inputEvent.addEventListener("click", function(){
             subTotal = articulo.unitCost * document.getElementById(`cantidad${articulo.id}`).value
             document.getElementById(`subTotal${articulo.id}`).innerHTML = `${articulo.currency + ' ' + subTotal}`
+            //Al apretar un boton de cantidad de un producto se recalcula el subtotal
+            for(let i=0;i<cart.articles.length;i++){
+                total += parseInt(document.getElementsByClassName("subTotal")[i].innerHTML.split(' ')[1], 10)
+            }
+            document.getElementById("subTotalTotal").innerHTML = `USD${total}`
         })
     }
+    //Se inserta el subtotal al terminar de iterar en el carrito
+    document.getElementById("subTotalTotal").innerHTML = `USD${total}`
 
     let div = document.createElement('div')
     div.innerHTML +=   `<div class="subTitulo"><h4>Tipo de envio</h4></div>
@@ -76,5 +107,5 @@ let mostrarCarrito = (cart) => {
                                     <input type="text" id="numero" placeHolder="Numero">
                                     <input type="text" id="esquina" placeHolder="Esquina">
                                 </div>`
-    document.getElementById(`container`).appendChild(div)
+    contEnvio.appendChild(div)
 }
