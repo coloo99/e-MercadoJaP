@@ -109,7 +109,7 @@ let mostrarCarrito = (cart) => {
 
     let div = document.createElement('div')
     div.innerHTML +=   `<div class="subTitulo"><h4>Tipo de envio</h4></div>
-                                <div class="tipoEnvio">
+                                <div class="tipoEnvio" id="tipoEnvio">
                                     <div>
                                         <input class="radio" type="radio" id="premium" name="tipo" value="15">
                                         <label for="premium">Premium 2 a 5 dias(15%)</label>
@@ -138,6 +138,20 @@ let mostrarCarrito = (cart) => {
          if(radios[i].checked)
          document.getElementById("envio").innerHTML = `USD ${total*parseInt(radios[i].value)/100}`
      }
+     //Se recalcula al cambiar el checkbox checkeado
+     document.getElementById("premium").addEventListener("click", event => {
+        let radioPrem = document.getElementById("premium")
+        document.getElementById("envio").innerHTML = `USD ${total*parseInt(radioPrem.value)/100}`
+     })
+     document.getElementById("express").addEventListener("click", event => {
+        let radioExp = document.getElementById("express")
+        document.getElementById("envio").innerHTML = `USD ${total*parseInt(radioExp.value)/100}`
+     })
+     document.getElementById("standard").addEventListener("click", event => {
+        let radioStand = document.getElementById("standard")
+        document.getElementById("envio").innerHTML = `USD ${total*parseInt(radioStand.value)/100}`
+     })
+
      document.getElementById("total").innerHTML = `USD ${parseInt(document.getElementById("subTotalTotal").textContent.split(' ')[1], 10) + parseInt(document.getElementById("envio").textContent.split(' ')[1], 10)}`
      document.getElementById("pagoCont").innerHTML = `<h4 id="formaPago">Forma de pago</h4>
                                                         <div class="formaPago">
@@ -276,12 +290,15 @@ let mostrarCarrito = (cart) => {
 
 //Se verifica que todos los campos esten completos para finalizar la compra
 function finalizarCompra(){
+    document.getElementById("errorDireccion").innerHTML = ""
     if(document.getElementById("calle").value === "" || document.getElementById("numero").value === "" || document.getElementById("esquina").value === ""){
         document.getElementById("errorDireccion").innerHTML = `<p class="error">Porfavor llenar los campos de direccion para el envio</p>`
-    }else if(document.getElementById("credit").checked){
+    }
+    if(document.getElementById("credit").checked){
         if(document.getElementById("cc-number").value === "" || document.getElementById("cc-expiration").value === "" || document.getElementById("cc-cvv").value === "")
             document.getElementById("errorVerificacion").innerHTML = `<p class="error">Porfavor llenar los datos de la tarjeta</p>`
-    }else if(document.getElementById("transfer").checked){
+    }
+    if(document.getElementById("transfer").checked){
         if(document.getElementById("cuenta-number").value === "")
             document.getElementById("errorVerificacion").innerHTML = `<p class="error">Porfavor llenar el campo numero de cuenta</p>`
     }
