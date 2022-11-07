@@ -52,7 +52,62 @@
   </nav>
   <main>
     <div class="container" id="myPerfil">
-      
+      <form action="#" method="get" class="row mt-4 needs-validation" id="mi-formulario-perfil" novalidate>
+        <div class="col">
+          <h1 class="mb-3">Perfil</h1>
+          <hr class="my-4">
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="primerNombre" class="form-label">Primer nombre*</label>
+              <input type="text" class="form-control" id="primerNombre" required>
+              <div class="invalid-feedback" id="errorPrimNombre">
+                Debe ingresar su primer nombre.
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="segundoNombre" class="form-label">Segundo nombre</label>
+              <input type="text" class="form-control" id="segundoNombre" required>
+              <div class="invalid-feedback" id="errorSegNombre">
+                Debe ingresar su segundo nombre.
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="primerApellido" class="form-label">Primer apellido*</label>
+              <input type="text" class="form-control" id="primerApellido" required>
+              <div class="invalid-feedback" id="errorPrimApellido">
+                Debe ingresar su primer appellido.
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="segundoApellido" class="form-label">Segundo apellido</label>
+              <input type="text" class="form-control" id="segundoApellido" required>
+              <div class="invalid-feedback" id="errorSegApellido">
+                debe ingresar su segundo apellido
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="e-mail" class="form-label">E-mail</label>
+              <input type="email" class="form-control" id="e-mail" required>
+              <div class="invalid-feedback" id="errorE-mail">
+                Debe ingresar su e-mail
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="telefono" class="form-label">Telefono*</label>
+              <input type="phone" class="form-control" id="telefono" required>
+              <div class="invalid-feedback" id="errorTelefono">
+                Debe ingresar su telefono
+              </div>
+            </div>
+            <button class="btn btn-primary" type="submit" id="guardarPerfil">Guardar cambios</button>
+          </div>
+        </div>
+      </form>
     </div>
   </main>
   <footer class="text-muted">
@@ -63,6 +118,15 @@
       <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a> -
         2022</p>
       <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
+    </div>
+
+    <div class="alert alert-success text-success alert-dismissible fade" role="alert" id="alert-succes">
+      <p>¡Has comprado con éxito!</p>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div class="alert alert-danger text-danger alert-dismissible fade" role="alert" id="alert-danger">
+      <p>Los datos ingresados no cumplen con los requisitos solicitados</p>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
   </footer>
   <script src="js/bootstrap.bundle.min.js"></script>
