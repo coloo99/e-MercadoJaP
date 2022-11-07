@@ -41,7 +41,13 @@ function logear(){
         document.getElementById('errForm').innerHTML = "<p class='errForm'>La contraseña debe tener minimo 8 caracteres</p>"
         eventoLogear()
     }else if(contra.length >= 8){
-        let user = [email, contra]
+        let user = {email,
+                    contra,
+                    pNombre: "",
+                    sNombre: "",
+                    pApellido: "",
+                    sApellido: "",
+                    tel: ""}
         localStorage.setItem("user",JSON.stringify(user));
         window.location = "index.html"
     }

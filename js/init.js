@@ -45,9 +45,10 @@ let user = JSON.parse(array);
 if(user === null){
   window.location = "login.html"
 }else{
+   console.log(user)
   document.getElementById('campoUsername').innerHTML = `<div class="dropdown show">
                                                           <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            ${user[0]}
+                                                            ${user.email}
                                                           </a>
                                                           <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuLink">
                                                             <a class="dropdown-item" href="./cart.html">Mi carrito</a>

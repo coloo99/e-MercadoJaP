@@ -1,12 +1,26 @@
-let botonDeRegistro = document.getElementById("guardarPerfil");
+let guardarPerfil = document.getElementById("guardarPerfil");
 const form = document.getElementById('mi-formulario-perfil');
 const primerNombre = document.getElementById("primerNombre");
+const segundoNombre = document.getElementById("segundoNombre");
 const primerApellido = document.getElementById("primerApellido");
+const segundoApellido = document.getElementById("segundoApellido");
 const email = document.getElementById("e-mail");
 const telefono = document.getElementById("telefono");
 
 const errorEmail = document.getElementById("errorE-mail");
 const errorTelefono = document.getElementById("errorTelefono");
+
+function obtenerUsuario(){
+    let array = localStorage.getItem('user');
+    let user = JSON.parse(array);
+    email.value = user.email;
+    primerNombre.value = user.pNombre;
+    segundoNombre.value = user.sNombre;
+    primerApellido.value = user.pApellido;
+    segundoApellido.value = user.sApellido;
+    telefono.value = user.tel;
+}
+obtenerUsuario()
 
 function hacerValidacion(event) {
     if (!form.checkValidity()) {
@@ -20,6 +34,7 @@ function hacerValidacion(event) {
         errorEmail.innerHTML = `Debe de ingresar un email valido.`
     } else {
         email.setCustomValidity("");
+        user.email = email.value;
     }
 
     if (!verificacionDeTelefono()) {
@@ -27,17 +42,16 @@ function hacerValidacion(event) {
         errorTelefono.innerHTML = `Debe de ingresar un telefono valido.`
     } else {
         telefono.setCustomValidity("");
-    }
-
-    if (form.checkValidity() && verificacionLargoContraseña() && validacionDeIgualdadDeContraseñas() && validacionCheckBox()) {
-      showAlertSucces();
+        user.tel = telefono.value;
     }
 
     form.classList.add('was-validated')
+    localStorage.setItem("user",JSON.stringify(user));
+
 }
 
 function validarFormulario() {
-    botonDeRegistro.addEventListener('click', hacerValidacion, false)
+    guardarPerfil.addEventListener('click', hacerValidacion, false)
 }
 
 function showAlertError() {
