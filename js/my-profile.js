@@ -7,6 +7,10 @@ const segundoApellido = document.getElementById("segundoApellido");
 const email = document.getElementById("e-mail");
 const telefono = document.getElementById("telefono");
 
+const errorPrimNombre = document.getElementById("errorPrimNombre")
+const errorSegNombre = document.getElementById("errorSegNombre")
+const errorPrimApellido = document.getElementById("errorPrimApellido");
+const errorSegApellido = document.getElementById("errorSegApellido")
 const errorEmail = document.getElementById("errorE-mail");
 const errorTelefono = document.getElementById("errorTelefono");
 
@@ -23,13 +27,47 @@ function obtenerUsuario(){
 obtenerUsuario()
 
 function hacerValidacion(event) {
-    if (!form.checkValidity()) {
         event.preventDefault();
         event.stopPropagation();
-        showAlertError();
+    
+    if (!verificacionDeNombre()) {
+        primerNombre.setCustomValidity(false);
+        console.log(errorPrimNombre)
+        errorPrimNombre.innerHTML = `Debe de ingresar un telefono valido.`
+        user.pNombre = primerNombre.value;
+    } else {
+        primerNombre.setCustomValidity("");
+        user.pNombre = primerNombre.value;
     }
 
-    if (!emailValidation()) {
+    if (!verificacionDeSegNombre()) {
+        segundoNombre.setCustomValidity("");
+        errorSegNombre.innerHTML = `Si tiene segundo nombre se recomienda escribirlo`
+        user.sNombre = segundoNombre.value;
+    } else {
+        segundoNombre.setCustomValidity("");
+        user.sNombre = segundoNombre.value;
+    }
+
+    if (!verificacionDeApellido()) {
+        primerApellido.setCustomValidity(false);
+        errorPrimApellido.innerHTML = `Debe de ingresar un telefono valido.`
+        user.pApellido = primerApellido.value;
+    } else {
+        primerApellido.setCustomValidity("");
+        user.pApellido = primerApellido.value;
+    }
+
+    if (!verificacionDeSegApellido()) {
+        segundoApellido.setCustomValidity("");
+        errorSegApellido.innerHTML = `Se recomienda ingresar su segundo apellido.`
+        user.sApellido = segundoApellido.value;
+    } else {
+        segundoApellido.setCustomValidity("");
+        user.sApellido = segundoApellido.value;
+    }
+
+    if (!verificacionDeEmail()) {
         email.setCustomValidity(false);
         errorEmail.innerHTML = `Debe de ingresar un email valido.`
     } else {
@@ -40,9 +78,16 @@ function hacerValidacion(event) {
     if (!verificacionDeTelefono()) {
         telefono.setCustomValidity(false);
         errorTelefono.innerHTML = `Debe de ingresar un telefono valido.`
+        user.tel = telefono.value;
     } else {
         telefono.setCustomValidity("");
         user.tel = telefono.value;
+    }
+
+    if(verificacionDeNombre() && verificacionDeApellido() && verificacionDeEmail() && verificacionDeTelefono()){
+        showAlertSucces()
+    } else {
+        showAlertError();
     }
 
     form.classList.add('was-validated')
@@ -63,64 +108,61 @@ function showAlertSucces() {
 }
 
 function verificacionDeNombre() {
+    return (primerNombre.value.length > 3);
+}
+
+function verificacionDeSegNombre() {
     return (primerNombre.value.length > 0);
 }
 
 function verificacionDeApellido() {
+    return (primerApellido.value.length > 3);
+}
+
+function verificacionDeSegApellido() {
     return (primerApellido.value.length > 0);
 }
 
+
 function verificacionDeEmail() {
-    return (email.value.length > 0);
-}
-
-function verificacionDeTelefono() {
-    return (telefono.value.length > 8);
-}
-
-function verificacionDeMinimosDeCampos() {
-    return (verificacionDeNombre() || verificacionDeApellido() || verificacionDeEmail() || verificacionDeContraseña1() || verificacionDeContraseña2())
-}
-
-function verificacionLargoContraseña() {
-    return (contraseña1.value.length > 5);
-}
-
-function validacionDeIgualdadDeContraseñas() {
-    return (contraseña1.value === contraseña2.value);
-}
-
-function emailValidation() {
     var expReg = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
     var esValido = expReg.test(email.value);
     if (esValido) {
-        console.log("true");
         return true;
     } else {
-        console.log("false");
         return false;
     }
 }
 
+function verificacionDeTelefono() {
+    return (telefono.value.length > 7);
+}
 
-//validarFormulario();
 document.getElementById("mi-formulario-perfil").addEventListener("submit", element => {
     hacerValidacion(element);
     validarFormulario();
-    contraseña1.addEventListener("input", evento => {
-        if (!verificacionLargoContraseña()) {
-            contraseña1.setCustomValidity(false);
-            divContraseña.innerHTML = `Debe de ingresar una contraseña con al menos 6 caracteres.`
+    primerNombre.addEventListener("keydown", evento => {
+        if (!verificacionDeNombre()) {
+            primerNombre.setCustomValidity("");
+            errorPrimNombre.innerHTML = `Si tiene segundo nombre se recomienda escribirlo`
         } else {
-            contraseña1.setCustomValidity("");
+            primerNombre.setCustomValidity("");
         }
     })
-    contraseña2.addEventListener("input", evento => {
-        if (!validacionDeIgualdadDeContraseñas()) {
-            contraseña2.setCustomValidity(false);
-            divContraseñaRepetida.innerHTML = `Debe ser igual a "contraseña".`
+    primerApellido.addEventListener("keydown", evento => {
+        if (!verificacionDeApellido()) {
+            primerApellido.setCustomValidity(false);
+            errorPrimApellido.innerHTML = `Debe de ingresar un telefono valido.`
         } else {
-            contraseña2.setCustomValidity("");
+            primerApellido.setCustomValidity("");
+        }
+    })
+    telefono.addEventListener("keydown", evento => {
+        if (!verificacionDeTelefono()) {
+            telefono.setCustomValidity(false);
+            errorTelefono.innerHTML = `Debe de ingresar un telefono valido.`
+        } else {
+            telefono.setCustomValidity("");
         }
     })
 })
