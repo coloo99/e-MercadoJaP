@@ -56,31 +56,34 @@ let mostrarProducto = (producto) => {
                                                             <span class="visually-hidden">Next</span>
                                                         </button>
                                                     </div>`
-    document.getElementById('addToCart').addEventListener('click', function(e){
-            let prod = {
-                count: 1,
-                currency: producto.currency,
-                id: producto.id,
-                image: imgs[0],
-                name: producto.name,
-                unitCost: producto.cost,
-            }
-            if(localStorage.getItem('productosCarrito') === null){
-                productosCarrito.push(prod)
-                productosCarrito = JSON.stringify(productosCarrito)
-                localStorage.setItem('productosCarrito', productosCarrito)
-                window.location = "cart.html"
-            }else{
-                productosCarrito = JSON.parse(localStorage.getItem('productosCarrito'))
-                productosCarrito.push(prod)
-                productosCarrito = JSON.stringify(productosCarrito)
-                localStorage.setItem('productosCarrito', productosCarrito)
-                window.location = "cart.html"
-            }
-        
-    })
+    agregarAlCarrito(producto);
     listarSugeridos(producto.relatedProducts)
 } 
+
+function agregarAlCarrito(producto){
+    document.getElementById('addToCart').addEventListener('click', function(e){
+        let prod = {
+            count: 1,
+            currency: producto.currency,
+            id: producto.id,
+            image: imgs[0],
+            name: producto.name,
+            unitCost: producto.cost,
+        }
+        if(localStorage.getItem('productosCarrito') === null){
+            productosCarrito.push(prod)
+            productosCarrito = JSON.stringify(productosCarrito)
+            localStorage.setItem('productosCarrito', productosCarrito)
+            window.location = "cart.html"
+        }else{
+            productosCarrito = JSON.parse(localStorage.getItem('productosCarrito'))
+            productosCarrito.push(prod)
+            productosCarrito = JSON.stringify(productosCarrito)
+            localStorage.setItem('productosCarrito', productosCarrito)
+            window.location = "cart.html"
+        }
+})
+}
 
 fetch(ProductsCommentsURL)
     .then(response => response.json())
@@ -123,26 +126,29 @@ let insertarComentarios = (comentarios) =>{
     }
 }
 
-document.getElementById('envComentario').addEventListener('click', function(e){
-    let comentario = document.getElementById('comentarioText').value
-    let score = document.getElementById('score').value
-    let user = JSON.parse(localStorage.getItem('user'));
-    
-    let hoy = new Date()
-    let fecha = hoy.getFullYear() + '-' + String( hoy.getMonth() + 1 ).padStart(2, '0') + '-' + hoy.getDate();
-    var hora = hoy.getHours() + ':' + hoy.getMinutes() + ':' + hoy.getSeconds();
-    var dateTimeCompleto = fecha + ' ' + hora;
+function agregarUnComentario(){
+    document.getElementById('envComentario').addEventListener('click', function(e){
+        let comentario = document.getElementById('comentarioText').value
+        let score = document.getElementById('score').value
+        let user = JSON.parse(localStorage.getItem('user'));
+        
+        let hoy = new Date()
+        let fecha = hoy.getFullYear() + '-' + String( hoy.getMonth() + 1 ).padStart(2, '0') + '-' + hoy.getDate();
+        var hora = hoy.getHours() + ':' + hoy.getMinutes() + ':' + hoy.getSeconds();
+        var dateTimeCompleto = fecha + ' ' + hora;
 
-    let comentarioNuevo = []
-    comentarioNuevo[0] = {
-        dateTime: dateTimeCompleto,
-        description: comentario,
-        product: productoActual.id,
-        score: score,
-        user: user[0]}
+        let comentarioNuevo = []
+        comentarioNuevo[0] = {
+            dateTime: dateTimeCompleto,
+            description: comentario,
+            product: productoActual.id,
+            score: score,
+            user: user[0]}
 
-    insertarComentarios(comentarioNuevo)
-})
+        insertarComentarios(comentarioNuevo)
+    })
+}
+agregarUnComentario()
 
 function listarSugeridos(productos){
     document.getElementById("productosSugeridos").innerHTML =  `<h3 class="tituloSugeridos">Nuestros productos similares</h3>`

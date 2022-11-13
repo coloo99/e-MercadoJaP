@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link href="css/my-profile.css" rel="stylesheet">
   <style>
     .bd-placeholder-img {
       font-size: 1.125rem;
@@ -103,6 +104,18 @@
               <div class="invalid-feedback" id="errorTelefono">
                 Debe ingresar su telefono
               </div>
+            </div>
+            <div id="divVistaImg" class="col-sm-12">
+              <label id="fotoDePerfilLabel" for="fotoDePerfil" class="form-label">Foto de perfil</label>
+              <div class="fotoDePerfilInput">
+                <input accept="image/*" type="file" id="fotoDePerfil" onchange="guardarFotoPerfil()">
+                Subir foto de perfil
+                <div class="invalid-feedback" id="errorFotoDePerfil">
+                  Nos gustaria que ingrese una foto para su perfil
+                </div>
+              </div>
+              <div id="fotoActual">Foto actual:</div>
+              <img src="" alt="" id="vistaPreviaImagenPerfil">
             </div>
             <button class="btn btn-primary" type="submit" id="guardarPerfil">Guardar cambios</button>
           </div>

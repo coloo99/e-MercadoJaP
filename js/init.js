@@ -40,12 +40,11 @@ let getJSONData = function(url){
     });
 }
 
-let array = localStorage.getItem('user');
+function checkeoDeUsuarioLogeado(){let array = localStorage.getItem('user');
 let user = JSON.parse(array);
 if(user === null){
   window.location = "login.html"
 }else{
-   console.log(user)
   document.getElementById('campoUsername').innerHTML = `<div class="dropdown show">
                                                           <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                                             ${user.email}
@@ -56,7 +55,8 @@ if(user === null){
                                                             <a onclick="logOut()" class="dropdown-item" href="./login.html">Cerrar sesion</a>
                                                           </div>
                                                         </div>`
-}
+}}
+checkeoDeUsuarioLogeado()
 
 function logOut(){
   localStorage.removeItem('user');

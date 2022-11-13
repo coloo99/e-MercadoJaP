@@ -6,6 +6,8 @@ const primerApellido = document.getElementById("primerApellido");
 const segundoApellido = document.getElementById("segundoApellido");
 const email = document.getElementById("e-mail");
 const telefono = document.getElementById("telefono");
+const fotoDePerfil = document.getElementById("fotoDePerfil")
+let previewImg = document.getElementById("vistaPreviaImagenPerfil");
 
 const errorPrimNombre = document.getElementById("errorPrimNombre")
 const errorSegNombre = document.getElementById("errorSegNombre")
@@ -13,16 +15,24 @@ const errorPrimApellido = document.getElementById("errorPrimApellido");
 const errorSegApellido = document.getElementById("errorSegApellido")
 const errorEmail = document.getElementById("errorE-mail");
 const errorTelefono = document.getElementById("errorTelefono");
+const errorFotoDePerfil = document.getElementById("errorFotoDePerfil")
+
+let user= []
 
 function obtenerUsuario(){
     let array = localStorage.getItem('user');
-    let user = JSON.parse(array);
+    user = JSON.parse(array);
     email.value = user.email;
     primerNombre.value = user.pNombre;
     segundoNombre.value = user.sNombre;
     primerApellido.value = user.pApellido;
     segundoApellido.value = user.sApellido;
     telefono.value = user.tel;
+    if(user.imagenPerfil == ""){
+        previewImg.src = "img/img_perfil.png"
+    }else{
+        previewImg.src = user.imagenPerfil;
+    }
 }
 obtenerUsuario()
 
@@ -32,9 +42,7 @@ function hacerValidacion(event) {
     
     if (!verificacionDeNombre()) {
         primerNombre.setCustomValidity(false);
-        console.log(errorPrimNombre)
-        errorPrimNombre.innerHTML = `Debe de ingresar un telefono valido.`
-        user.pNombre = primerNombre.value;
+        errorPrimNombre.innerHTML = `Debe de ingresar su nombre.`
     } else {
         primerNombre.setCustomValidity("");
         user.pNombre = primerNombre.value;
@@ -51,8 +59,7 @@ function hacerValidacion(event) {
 
     if (!verificacionDeApellido()) {
         primerApellido.setCustomValidity(false);
-        errorPrimApellido.innerHTML = `Debe de ingresar un telefono valido.`
-        user.pApellido = primerApellido.value;
+        errorPrimApellido.innerHTML = `Debe de ingresar su apellido.`
     } else {
         primerApellido.setCustomValidity("");
         user.pApellido = primerApellido.value;
@@ -78,10 +85,16 @@ function hacerValidacion(event) {
     if (!verificacionDeTelefono()) {
         telefono.setCustomValidity(false);
         errorTelefono.innerHTML = `Debe de ingresar un telefono valido.`
-        user.tel = telefono.value;
     } else {
         telefono.setCustomValidity("");
         user.tel = telefono.value;
+    }
+
+    if(!guardarFotoPerfil()){
+        fotoDePerfil.setCustomValidity(false);
+        errorFotoDePerfil.innerHTML = `Si quiere puede subir una foto para su perfil.`
+    } else {
+        fotoDePerfil.setCustomValidity("");
     }
 
     if(verificacionDeNombre() && verificacionDeApellido() && verificacionDeEmail() && verificacionDeTelefono()){
@@ -135,7 +148,33 @@ function verificacionDeEmail() {
 }
 
 function verificacionDeTelefono() {
-    return (telefono.value.length > 7);
+    const regex = /^[0-9]*$/;
+    const onlyNumbers = regex.test(telefono.value);
+    return (telefono.value.length > 7 && onlyNumbers);
+}
+
+function guardarFotoPerfil(){
+    let previewImg = document.getElementById("vistaPreviaImagenPerfil");
+    var foto = document.getElementById('fotoDePerfil').files[0];
+    var reader = new FileReader();
+
+    reader.addEventListener("load", function () {
+        // convierte la imagen a una cadena en base64
+        previewImg.src = reader.result;
+        user.imagenPerfil = reader.result
+    }, false);
+    if (foto) {
+        reader.readAsDataURL(foto);
+        return true;
+    }
+    let rutaSeparada = previewImg.src.split("/")
+    let ruta = rutaSeparada[rutaSeparada.length-2] + "/" + rutaSeparada[rutaSeparada.length-1]
+    if(ruta === "img/img_perfil.png"){
+        return false;
+    }
+    if(ruta !== "img/img_perfil.png"){
+        return true;
+    }
 }
 
 document.getElementById("mi-formulario-perfil").addEventListener("submit", element => {
